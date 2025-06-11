@@ -33,3 +33,34 @@ class Wholesaler:
 root = Tk()
 root.geometry("1200x800")
 root.title("Lista hurtowni")
+
+ramka_lista_hurtowni=Frame(root)
+ramka_lista_pracownikow=Frame(root)
+
+ramka_lista_hurtowni.grid(row=0, column=0)
+ramka_lista_pracownikow.grid(row=0, column=1)
+#ramka hurtowni
+
+
+label_lista_hurtowni= Label(ramka_lista_hurtowni, text="Lista obiektów")
+label_lista_hurtowni.grid(row=0, column=0, columnspan=2)
+listbox_lista_hurtowni = Listbox(ramka_lista_hurtowni, width=60, height=15)
+listbox_lista_hurtowni.grid(row=1, column=0, columnspan=3)
+button_szczegoly = Button(ramka_lista_hurtowni, text="Pokaż szczegóły", command=show_user_details)
+button_szczegoly.grid(row=2, column=0)
+button_usun = Button(ramka_lista_hurtowni, text="Usuń hurtownie", command=remove_user)
+button_usun.grid(row=2, column=1)
+button_edytuj_hurtownie = Button(ramka_lista_hurtowni, text="Edytuj hurtownie", command=edit_user)
+button_edytuj_hurtownie.grid(row=2, column=2)
+
+#ramka pracownikow
+label_lista_pracownikow= Label(ramka_lista_pracownikow, text="Lista pracowników")
+label_lista_pracownikow.grid(row=0, column=0, columnspan=2)
+listbox_lista_pracownikow = Listbox(ramka_lista_pracownikow, width=60, height=15)
+listbox_lista_pracownikow.grid(row=1, column=0, columnspan=3)
+button_szczegoly_pracownika = Button(ramka_lista_pracownikow, text="Pokaż szczegóły pracownika", command=show_user_details)
+button_szczegoly_pracownika.grid(row=2, column=0)
+button_usun_pracownika = Button(ramka_lista_pracownikow, text="Usuń pracownika", command=remove_user)
+button_usun_pracownika.grid(row=2, column=1)
+button_edytuj_pracownika = Button(ramka_lista_pracownikow, text="Edytuj informacje o pracowniku ", command=edit_user)
+button_edytuj_pracownika.grid(row=2, column=2)
