@@ -1,10 +1,9 @@
 from tkinter import *
 import tkintermapview
 
-users: list= []
+users : list= []
 
 
-# hurtownie
 class Wholesaler:
     def __init__(self, name, location):
         self.name = name
@@ -25,10 +24,16 @@ class Wholesaler:
         print(longitude)
         return [latitude, longitude]
 
-    def add_wholesaler():
-        zmienna_nazwa = entry_name.get()
-        zmienna_lokalizacja = entry_location.get()
+def add_wholesaler():
+    zmienna_nazwa = entry_name.get()
+    zmienna_lokalizacja = entry_location.get()
 
+users.append(Wholesaler(name=zmienna_nazwa, surname=zmienna_lokalizacja))
+    print(users)
+    entry_name.delete(0, END)
+    entry_location.delete(0, END)
+    entry_name.focus()
+    show_users()
 
 root = Tk()
 root.geometry("1200x800")
@@ -39,8 +44,8 @@ ramka_lista_pracownikow=Frame(root)
 
 ramka_lista_hurtowni.grid(row=0, column=0)
 ramka_lista_pracownikow.grid(row=0, column=1)
-#ramka hurtowni
 
+#ramka hurtowni
 
 label_lista_hurtowni= Label(ramka_lista_hurtowni, text="Lista obiektów")
 label_lista_hurtowni.grid(row=0, column=0, columnspan=2)
