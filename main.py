@@ -1,7 +1,7 @@
 from tkinter import *
 import tkintermapview
 
-users: list = []
+users: list= []
 
 
 # hurtownie
