@@ -48,6 +48,23 @@ class Klient: # definicja klasy
         self.hurtownia = hurtownia
         self.coordinates = get_coordinates(street, city) # tworzenie obiektu
         self.marker = map_widget.set_marker(*self.coordinates, text=f"K: {self.name} {self.surname}") # tworzenie obiektu
+def refresh_comboboxes(): # definicja funkcji
+    names = [h.name for h in hurtownie]
+    combo_p_hurtownia['values'] = names
+    combo_k_hurtownia['values'] = names
+    combo_szczegoly['values'] = names
+
+def delete_selected(listbox, dataset): # definicja funkcji
+    index = listbox.curselection() # tworzenie obiektu
+    if not index:
+        return
+    obj = dataset[index[0]]
+    if hasattr(obj, "marker") and obj.marker:
+        obj.marker.delete() # usunięcie elementu
+        obj.marker = None
+    del dataset[index[0]]
+    listbox.delete(index[0]) # usunięcie elementu
+    refresh_comboboxes()
 
 def show_details_worker(): # definicja funkcji
     i = listbox_szczegoly_pracownicy.curselection() # tworzenie obiektu
