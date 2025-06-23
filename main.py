@@ -255,4 +255,3 @@ map_widget.set_zoom(6) # ustawienie poziomu przybliżenia
 map_widget.pack(expand=True, fill=BOTH)
 
 root.mainloop()
-
