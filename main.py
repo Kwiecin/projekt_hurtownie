@@ -126,3 +126,33 @@ notebook.add(frame_hurtownie, text="Hurtownie") # tworzenie obiektu
 notebook.add(frame_pracownicy, text="Pracownicy")
 notebook.add(frame_klienci, text="Klienci")
 notebook.add(frame_szczegoly, text="Szczegóły")
+
+
+# === HURTOWNIE ===
+entry_h_name = Entry(frame_hurtownie) # pole tekstowe do wprowadzania danych
+entry_h_street = Entry(frame_hurtownie)
+entry_h_city = Entry(frame_hurtownie)
+Label(frame_hurtownie, text="Nazwa").pack() # etykieta tekstowa
+entry_h_name.pack() # umieszczenie elementu w interfejsie
+Label(frame_hurtownie, text="Ulica").pack()
+entry_h_street.pack()
+Label(frame_hurtownie, text="Miasto").pack() # etykieta tekstowa
+entry_h_city.pack()
+
+def add_hurtownia(): # definicja funkcji
+    name = entry_h_name.get().strip() # tworzenie obiektu
+    street = entry_h_street.get().strip()
+    city = entry_h_city.get().strip()
+    if not name or not city:
+        messagebox.showwarning("Błąd", "Uzupełnij nazwę i miasto hurtowni.") # wyświetlenie komunikatu
+        return
+    h = Hurtownia(name, street, city) # tworzenie obiektu
+    hurtownie.append(h) # dodanie elementu do listy
+    listbox_hurtownie.insert(END, h.name) # dodanie wpisu do listy
+    refresh_comboboxes()
+    entry_h_name.delete(0,END); entry_h_street.delete(0,END); entry_h_city.delete(0,END) # usunięcie elementu
+
+Button(frame_hurtownie, text="Dodaj", command=add_hurtownia).pack() # przycisk
+listbox_hurtownie = Listbox(frame_hurtownie) # lista elementów
+listbox_hurtownie.pack() # umieszczenie elementu w interfejsie
+Button(frame_hurtownie, text="Usuń", command=lambda: delete_selected(listbox_hurtownie, hurtownie)).pack() # przycisk
