@@ -48,3 +48,23 @@ class Klient: # definicja klasy
         self.hurtownia = hurtownia
         self.coordinates = get_coordinates(street, city) # tworzenie obiektu
         self.marker = map_widget.set_marker(*self.coordinates, text=f"K: {self.name} {self.surname}") # tworzenie obiektu
+
+def show_details_worker(): # definicja funkcji
+    i = listbox_szczegoly_pracownicy.curselection() # tworzenie obiektu
+    if i:
+        name = listbox_szczegoly_pracownicy.get(i[0]) # tworzenie obiektu
+        for p in pracownicy:
+            if f"{p.name} {p.surname}" == name:
+                label_output.config(text=f"Pracownik:\n{p.name} {p.surname}\n{p.street}, {p.city}\nHurtownia: {p.hurtownia.name}") # tworzenie obiektu
+                map_widget.set_position(*p.coordinates) # ustawienie pozycji mapy
+                map_widget.set_zoom(13) # ustawienie poziomu przybliżenia
+
+def show_details_client(): # definicja funkcji
+    i = listbox_szczegoly_klienci.curselection() # tworzenie obiektu
+    if i:
+        name = listbox_szczegoly_klienci.get(i[0]) # tworzenie obiektu
+        for k in klienci:
+            if f"{k.name} {k.surname}" == name:
+                label_output.config(text=f"Klient:\n{k.name} {k.surname}\n{(k.street+', ' if k.street else '')}{k.city}\nHurtownia: {k.hurtownia.name}") # tworzenie obiektu
+                map_widget.set_position(*k.coordinates) # ustawienie pozycji mapy
+                map_widget.set_zoom(13) # ustawienie poziomu przybliżenia
