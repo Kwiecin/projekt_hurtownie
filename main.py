@@ -1,7 +1,7 @@
 from tkinter import * # importujemy biblioteki
-from tkinter import ttk, messagebox # importujemy biblioteki
-import tkintermapview # importujemy biblioteki
-from geopy.geocoders import Nominatim # importujemy biblioteki
+from tkinter import ttk, messagebox
+import tkintermapview
+from geopy.geocoders import Nominatim
 
 hurtownie = []
 pracownicy = []
@@ -63,7 +63,7 @@ def delete_selected(listbox, dataset): # definicja funkcji
         obj.marker.delete() # usunięcie elementu
         obj.marker = None
     del dataset[index[0]]
-    listbox.delete(index[0]) # usunięcie elementu
+    listbox.delete(index[0])
     refresh_comboboxes()
 
 def show_details_worker(): # definicja funkcji
@@ -79,7 +79,7 @@ def show_details_worker(): # definicja funkcji
 def show_details_client(): # definicja funkcji
     i = listbox_szczegoly_klienci.curselection() # tworzenie obiektu
     if i:
-        name = listbox_szczegoly_klienci.get(i[0]) # tworzenie obiektu
+        name = listbox_szczegoly_klienci.get(i[0])
         for k in klienci:
             if f"{k.name} {k.surname}" == name:
                 label_output.config(text=f"Klient:\n{k.name} {k.surname}\n{(k.street+', ' if k.street else '')}{k.city}\nHurtownia: {k.hurtownia.name}") # tworzenie obiektu
@@ -93,10 +93,10 @@ def filtruj_dla_hurtowni(event=None): # definicja funkcji
     if not hurtownia:
         return
     listbox_szczegoly_pracownicy.delete(0, END) # usunięcie elementu
-    listbox_szczegoly_klienci.delete(0, END) # usunięcie elementu
+    listbox_szczegoly_klienci.delete(0, END)
     for obj in hurtownie + pracownicy + klienci:
         if hasattr(obj, "marker") and obj.marker:
-            obj.marker.delete() # usunięcie elementu
+            obj.marker.delete()
             obj.marker = None
     hurtownia.marker = map_widget.set_marker(*hurtownia.coordinates, text=f"H: {hurtownia.name}") # tworzenie obiektu
     map_widget.set_position(*hurtownia.coordinates) # ustawienie pozycji mapy
@@ -107,8 +107,8 @@ def filtruj_dla_hurtowni(event=None): # definicja funkcji
             p.marker = map_widget.set_marker(*p.coordinates, text=f"P: {p.name} {p.surname}") # tworzenie obiektu
     for k in klienci:
         if k.hurtownia.name == wybrana:
-            listbox_szczegoly_klienci.insert(END, f"{k.name} {k.surname}") # dodanie wpisu do listy
-            k.marker = map_widget.set_marker(*k.coordinates, text=f"K: {k.name} {k.surname}") # tworzenie obiekt
+            listbox_szczegoly_klienci.insert(END, f"{k.name} {k.surname}")
+            k.marker = map_widget.set_marker(*k.coordinates, text=f"K: {k.name} {k.surname}")
 # === GUI ===
 root = Tk() # tworzymy główne okno aplikacji
 root.title("System Hurtowni")
@@ -245,3 +245,13 @@ listbox_szczegoly_klienci.pack()
 
 label_output = Label(frame_szczegoly, text="", justify=LEFT, anchor="w")
 label_output.pack(fill=BOTH)
+
+# === MAPA ===
+frame_map = Frame(root)
+frame_map.pack(side=RIGHT, expand=True, fill=BOTH) # umieszczenie elementu w interfejsie
+map_widget = tkintermapview.TkinterMapView(frame_map, width=800, height=800, corner_radius=0)
+map_widget.set_position(52.23, 21.0) # ustawienie pozycji mapy
+map_widget.set_zoom(6) # ustawienie poziomu przybliżenia
+map_widget.pack(expand=True, fill=BOTH)
+
+root.mainloop()
