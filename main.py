@@ -108,4 +108,21 @@ def filtruj_dla_hurtowni(event=None): # definicja funkcji
     for k in klienci:
         if k.hurtownia.name == wybrana:
             listbox_szczegoly_klienci.insert(END, f"{k.name} {k.surname}") # dodanie wpisu do listy
-            k.marker = map_widget.set_marker(*k.coordinates, text=f"K: {k.name} {k.surname}") # tworzenie obiektu
+            k.marker = map_widget.set_marker(*k.coordinates, text=f"K: {k.name} {k.surname}") # tworzenie obiekt
+# === GUI ===
+root = Tk() # tworzymy główne okno aplikacji
+root.title("System Hurtowni")
+root.geometry("1400x800") # ustawienie rozmiaru okna
+
+notebook = ttk.Notebook(root)
+notebook.pack(side=LEFT, fill=BOTH, expand=True) # umieszczenie elementu w interfejsie
+
+frame_hurtownie = Frame(notebook) # tworzenie obiektu
+frame_pracownicy = Frame(notebook)
+frame_klienci = Frame(notebook)
+frame_szczegoly = Frame(notebook)
+
+notebook.add(frame_hurtownie, text="Hurtownie") # tworzenie obiektu
+notebook.add(frame_pracownicy, text="Pracownicy")
+notebook.add(frame_klienci, text="Klienci")
+notebook.add(frame_szczegoly, text="Szczegóły")
