@@ -85,3 +85,27 @@ def show_details_client(): # definicja funkcji
                 label_output.config(text=f"Klient:\n{k.name} {k.surname}\n{(k.street+', ' if k.street else '')}{k.city}\nHurtownia: {k.hurtownia.name}") # tworzenie obiektu
                 map_widget.set_position(*k.coordinates) # ustawienie pozycji mapy
                 map_widget.set_zoom(13) # ustawienie poziomu przybliżenia
+def filtruj_dla_hurtowni(event=None): # definicja funkcji
+    wybrana = combo_szczegoly.get() # tworzenie obiektu
+    if not wybrana:
+        return
+    hurtownia = next((h for h in hurtownie if h.name == wybrana), None) # tworzenie obiektu
+    if not hurtownia:
+        return
+    listbox_szczegoly_pracownicy.delete(0, END) # usunięcie elementu
+    listbox_szczegoly_klienci.delete(0, END) # usunięcie elementu
+    for obj in hurtownie + pracownicy + klienci:
+        if hasattr(obj, "marker") and obj.marker:
+            obj.marker.delete() # usunięcie elementu
+            obj.marker = None
+    hurtownia.marker = map_widget.set_marker(*hurtownia.coordinates, text=f"H: {hurtownia.name}") # tworzenie obiektu
+    map_widget.set_position(*hurtownia.coordinates) # ustawienie pozycji mapy
+    map_widget.set_zoom(10) # ustawienie poziomu przybliżenia
+    for p in pracownicy:
+        if p.hurtownia.name == wybrana:
+            listbox_szczegoly_pracownicy.insert(END, f"{p.name} {p.surname}") # dodanie wpisu do listy
+            p.marker = map_widget.set_marker(*p.coordinates, text=f"P: {p.name} {p.surname}") # tworzenie obiektu
+    for k in klienci:
+        if k.hurtownia.name == wybrana:
+            listbox_szczegoly_klienci.insert(END, f"{k.name} {k.surname}") # dodanie wpisu do listy
+            k.marker = map_widget.set_marker(*k.coordinates, text=f"K: {k.name} {k.surname}") # tworzenie obiektu
